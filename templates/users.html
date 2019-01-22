@@ -1,0 +1,114 @@
+{% extends 'base.html'%}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+
+	<!-- Page info -->
+	<div class="page-info-section set-bg" data-setbg="/static/img/page-bg/1.jpg">
+		<div class="container">
+			<div class="site-breadcrumb">
+				<a href="{%url 'home_url' %}">Home</a>
+				<span>Users</span>
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+
+
+
+
+	{% if usertable %}
+	<!-- course section -->
+	<section class="course-section spad pb-0">
+		<div class="course-warp">
+			<ul class="course-filter controls">
+				<li class="control active" data-filter="all"> {{ count }} users are found </li>
+			</ul>  
+												 
+			<div class="row course-items-area">
+				<!-- course -->
+				
+				
+				<div class="col-md-12">
+					<table id="userTable" class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr>
+								<th>Sl No</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Username</th>
+								<th>Email</th>
+								<th>Position</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for u in usertable %}
+							<tr>
+								<td>{{ forloop.counter }}</td>
+								<td>{{ u.author.first_name }}</td>
+								<td>{{ u.author.last_name }}</td>
+								<td>{{ u.author.username }}</td>
+								<td>{{ u.author.email }}</td>
+								<td>{{ u.position }}</td>
+								<td><a href="{% url 'user_edit_url' username=u.author.username %}">Edit</a> | <a href="{}">Delete</a></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+				</table>
+				
+				</div>
+
+
+
+				
+				<!-- course -->
+				
+			</div>
+			
+		</div>
+	</section>
+	<!-- course section end -->
+	{% endif %}
+<script>
+	$(document).ready(function() {
+    $('#userTable').DataTable();
+} );
+</script>
+	
+
+
+	<!-- course section end -->
+
+	{% if error %}
+						<script>
+							swal("Users not exist")
+						</script>
+						<section class="course-section spad pb-0">
+		<div class="course-warp">
+			<ul class="course-filter controls">
+				<li class="control active" data-filter="all"> 0 users are found </li>
+			</ul>  
+												 
+			
+			
+		</div>
+	</section>
+	{% endif %}
+
+	<!-- banner section -->
+	<section class="banner-section spad">
+		<div class="container">
+			<div class="section-title mb-0 pb-2">
+				<h2>Join Our Community Now!</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+			</div>
+			<div class="text-center pt-5">
+				<a href="#" class="site-btn">Register Now</a>
+			</div>
+		</div>
+	</section>
+	<!-- banner section end -->
+
+{% endblock %}

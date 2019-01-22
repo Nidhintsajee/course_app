@@ -1,0 +1,199 @@
+{% extends 'base.html'%}
+{% block content %}
+
+
+	<!-- Page info -->
+	<div class="page-info-section set-bg" data-setbg="/static/img/page-bg/1.jpg">
+		<div class="container">
+			<div class="site-breadcrumb">
+				<a href="{%url 'home_url' %}">Home</a>
+				<span>Courses</span>
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+
+
+
+	<!-- search section -->
+	<section class="search-section ss-other-page">
+		<div class="container">
+			<div class="search-warp">
+				<div class="section-title text-white">
+					<h2><span>Search your course</span></h2>
+				</div>
+				<div class="row">
+					<div class="col-lg-10 offset-lg-1">
+						<!-- search form -->
+						<form class="course-search-form" action="{%url 'course_search_url' %}" method='POST'>
+						{%csrf_token%}
+							<input type="text" placeholder="Course" name="course">
+							<input type="text" class="last-m" placeholder="Category" name="category">
+							<button class="site-btn">Search Couse</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- search section end -->
+
+	{% if search_courses %}
+	<!-- course section -->
+	<section class="course-section spad pb-0">
+		<div class="course-warp">
+			<ul class="course-filter controls">
+				<li class="control active" data-filter="all"> {{ count }} results are found </li>
+			</ul>  
+			                                     
+			<div class="row course-items-area">
+				<!-- course -->
+				{% for c in search_courses %}
+				<div class="mix col-lg-3 col-md-4 col-sm-6 {{c.category.category_slug }}">
+					<a class="course-item" href="{% url 'course_single_url' course_slug=c.course_slug %}">
+						<div class="course-thumb set-bg" data-setbg="/media/{{ c.course_image }}">
+							<div class="price">Price: ${{ c.course_price }}</div>
+						</div>
+						<div class="course-info">
+							<div class="course-text">
+								<h5>{{ c.course_name }}</h5>
+								<div class="students">{{ c.category.category_name }}</div>
+								<p>{{ c.course_description|truncatechars:50 }}</p>
+								<!-- <div class="students">120 Students</div> -->
+							</div>
+							<div class="course-author">
+								<div class="ca-pic set-bg" data-setbg="/media/{{ c.author.image }}"></div>
+								<p>{{ c.author.author.first_name }} {{ c.author.author.last_name }} <br><span>{{ c.author.position }}</span></p>
+							</div>
+						</div>
+					</a>
+				</div>
+				{% endfor %}
+				<!-- course -->
+				
+			</div>
+			
+		</div>
+	</section>
+	<!-- course section end -->
+	{% endif %}
+
+	
+
+	{% if not search_courses and not error %}
+
+	<!-- course section -->
+	<section class="course-section spad pb-0">
+		<div class="course-warp">
+			<ul class="course-filter controls">
+				<li class="control active" data-filter="all">All</li>
+				{% for i in category %}
+				<li class="control" data-filter=".{{ i.category_slug }}">{{ i.category_name }}</li>
+				{% endfor %}
+			</ul>                                       
+			<div class="row course-items-area">
+				<!-- course -->
+				{% for c in course %}
+				<div class="mix col-lg-3 col-md-4 col-sm-6 {{c.category.category_slug }}">
+					<a class="course-item" href="{% url 'course_single_url' course_slug=c.course_slug %}">
+						<div class="course-thumb set-bg" data-setbg="/media/{{ c.course_image }}">
+							<div class="price">Price: ${{ c.course_price }}</div>
+						</div>
+						<div class="course-info">
+							<div class="course-text">
+								<h5>{{ c.course_name }}</h5>
+								<div class="students">{{ c.category.category_name }}</div>
+								<p>{{ c.course_description|truncatechars:50 }}</p>
+								<!-- <div class="students">120 Students</div> -->
+							</div>
+							<div class="course-author">
+								<div class="ca-pic set-bg" data-setbg="/media/{{ c.author.image }}"></div>
+								<p>{{ c.author.author.first_name }} {{ c.author.author.last_name }} <br><span>{{ c.author.position }}</span></p>
+							</div>
+						</div>
+					</a>
+				</div>
+				{% endfor %}
+				<!-- course -->
+				
+			</div>
+			<!-- <div class="featured-courses">
+				<div class="featured-course course-item">
+					<div class="course-thumb set-bg" data-setbg="/static/img/courses/f-1.jpg">
+						<div class="price">Price: $15</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 offset-lg-6 pl-0">
+							<div class="course-info">
+								<div class="course-text">
+									<div class="fet-note">Featured Course</div>
+									<h5>HTNL5 & CSS For Begginers</h5>
+									<p>Lorem ipsum dolor sit amet, consectetur. Phasellus sollicitudin et nunc eu efficitur. Sed ligula nulla, molestie quis ligula in, eleifend rhoncus ipsum. Donec ultrices, sem vel efficitur molestie, massa nisl posuere ipsum, ut vulputate mauris ligula a metus. Aenean vel congue diam, sed bibendum ipsum. Nunc vulputate aliquet tristique. Integer et pellentesque urna</p>
+									<div class="students">120 Students</div>
+								</div>
+								<div class="course-author">
+									<div class="ca-pic set-bg" data-setbg="/static/img/authors/1.jpg"></div>
+									<p>William Parker, <span>Developer</span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="featured-course course-item">
+					<div class="course-thumb set-bg" data-setbg="/static/img/courses/f-2.jpg">
+						<div class="price">Price: $15</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 pr-0">
+							<div class="course-info">
+								<div class="course-text">
+									<div class="fet-note">Featured Course</div>
+									<h5>HTNL5 & CSS For Begginers</h5>
+									<p>Lorem ipsum dolor sit amet, consectetur. Phasellus sollicitudin et nunc eu efficitur. Sed ligula nulla, molestie quis ligula in, eleifend rhoncus ipsum. Donec ultrices, sem vel efficitur molestie, massa nisl posuere ipsum, ut vulputate mauris ligula a metus. Aenean vel congue diam, sed bibendum ipsum. Nunc vulputate aliquet tristique. Integer et pellentesque urna</p>
+									<div class="students">120 Students</div>
+								</div>
+								<div class="course-author">
+									<div class="ca-pic set-bg" data-setbg="/static/img/authors/2.jpg"></div>
+									<p>William Parker, <span>Developer</span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</section>
+	{% endif %}
+	<!-- course section end -->
+
+	{% if error %}
+						<script>
+							swal("Courses not exist")
+						</script>
+						<section class="course-section spad pb-0">
+		<div class="course-warp">
+			<ul class="course-filter controls">
+				<li class="control active" data-filter="all"> 0 results are found </li>
+			</ul>  
+			                                     
+			
+			
+		</div>
+	</section>
+	{% endif %}
+
+	<!-- banner section -->
+	<section class="banner-section spad">
+		<div class="container">
+			<div class="section-title mb-0 pb-2">
+				<h2>Join Our Community Now!</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+			</div>
+			<div class="text-center pt-5">
+				<a href="#" class="site-btn">Register Now</a>
+			</div>
+		</div>
+	</section>
+	<!-- banner section end -->
+
+{% endblock %}

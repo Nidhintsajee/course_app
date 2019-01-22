@@ -1,0 +1,90 @@
+{% extends 'base.html'%}
+{% block content %}
+
+
+	<!-- Page info -->
+	<div class="page-info-section set-bg" data-setbg="/static/img/page-bg/1.jpg">
+		<div class="container">
+			<div class="site-breadcrumb">
+				<a href="{%url 'home_url' %}">Home</a>
+				<span>Categories</span>
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+
+
+	<!-- search section -->
+	<section class="search-section ss-other-page">
+		<div class="container">
+			<div class="search-warp">
+				<div class="section-title text-white">
+					<h2><span>Search your course</span></h2>
+				</div>
+				<div class="row">
+					<div class="col-lg-10 offset-lg-1">
+						<!-- search form -->
+						<form class="course-search-form" action="{%url 'course_search_url' %}" method='POST'>
+						{%csrf_token%}
+							<input type="text" placeholder="Course" name="course">
+							<input type="text" class="last-m" placeholder="Category" name="category">
+							<button class="site-btn">Search Couse</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- search section end -->
+
+
+		<!-- categories section -->
+	<section class="categories-section spad">
+		<div class="container">
+			<div class="section-title">
+				<h2>Our Course Categories</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+			</div>
+			<div class="row">
+
+
+				{% for i in category %}
+				<!-- categorie -->
+				
+				<div class="col-lg-4 col-md-6">
+				<a href="{% url 'category_single_url' category_slug=i.category_slug %}" style="width: 100%;">
+					<div class="categorie-item">
+						<div class="ci-thumb set-bg" data-setbg="/media/{{ i.category_image }}"></div>
+						<div class="ci-text">
+							<h5>{{ i.category_name }}</h5>
+							<p>{{ i.category_description|truncatechars:50 }}</p>
+							<span>120 Courses</span>
+						</div>
+					</div>
+					</a>
+				</div>
+				
+				
+				{% endfor %}
+
+			</div>
+		</div>
+	</section>
+	<!-- categories section end -->
+
+
+	<!-- banner section -->
+	<section class="banner-section spad">
+		<div class="container">
+			<div class="section-title mb-0 pb-2">
+				<h2>Join Our Community Now!</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+			</div>
+			<div class="text-center pt-5">
+				<a href="#" class="site-btn">Register Now</a>
+			</div>
+		</div>
+	</section>
+	<!-- banner section end -->
+
+{% endblock %}

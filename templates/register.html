@@ -1,0 +1,105 @@
+{% extends 'base.html'%}
+{% block content %}
+
+
+	<!-- Page info -->
+	<div class="page-info-section set-bg" data-setbg="/static/img/page-bg/4.jpg">
+		<div class="container">
+			<div class="site-breadcrumb">
+				<a href="{%url 'home_url' %}">Home</a>
+				<span>Register</span>
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+
+
+	<!-- search section -->
+	
+	<!-- search section end -->
+
+
+
+	<!-- Page -->
+	<section class="contact-page spad pb-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="contact-form-warp">
+						<div class="section-title text-white text-left">
+							<h2>Register Now</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. </p>
+						</div>
+						<form class="contact-form" action="{%url 'register_url' %}" method="POST" enctype='multipart/form-data'>
+						{%csrf_token%}
+							<input type="text" placeholder="First Name" name="first_name" value='{{ first_name }}'>
+							<input type="text" placeholder="Last Name" name="last_name" value='{{ last_name }}'>
+							<input type="text" placeholder="Username" name="username">
+							<input type="email" placeholder="Email" name="email" value='{{ email }}'>
+							<input type="password" placeholder="Password" name="passwords">
+							<input type='file' name='user-image' />
+							<button class="site-btn">Register</button>
+						</form>
+						{% if msg %}
+						<script>
+							swal("Registration successfully added")
+						</script>
+						{% endif %}
+						{% if username_exist %}
+						<script>
+							swal("Username is already exist")
+						</script>
+						{% endif %}
+						{% if email_exist %}
+						<script>
+							swal("Email is already exist")
+						</script>
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="contact-info-area">
+						<div class="section-title text-left p-0">
+							<h2>Contact Info</h2>
+							<p>Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendi sse cursus faucibus finibus.</p>
+						</div>
+						<div class="phone-number">
+							<span>Direct Line</span>
+							<h2>+53 345 7953 32453</h2>
+						</div>
+						<ul class="contact-list">
+							<li>1481 Creekside Lane <br>Avila Beach, CA 931</li>
+							<li>+53 345 7953 32453</li>
+							<li>yourmail@gmail.com</li>
+						</ul>
+						<div class="social-links">
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-dribbble"></i></a>
+							<a href="#"><i class="fa fa-behance"></i></a>
+							<a href="#"><i class="fa fa-linkedin"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="map-canvas"></div>
+		</div>
+	</section>
+	<!-- Page end -->
+
+
+	<!-- banner section -->
+	<section class="banner-section spad">
+		<div class="container">
+			<div class="section-title mb-0 pb-2">
+				<h2>Join Our Community Now!</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+			</div>
+			<div class="text-center pt-5">
+				<a href="#" class="site-btn">Register Now</a>
+			</div>
+		</div>
+	</section>
+	<!-- banner section end -->
+{% endblock %}

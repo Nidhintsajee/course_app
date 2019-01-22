@@ -1,0 +1,67 @@
+{% extends 'base.html'%}
+{% block content %}
+
+
+	<!-- Page info -->
+	<div class="page-info-section set-bg" data-setbg="/static/img/page-bg/4.jpg">
+		<div class="container">
+			<div class="site-breadcrumb">
+				<a href="{%url 'home_url' %}">Home</a>
+				<span>Login</span>
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+
+
+	<!-- search section -->
+	<section class="search-section ss-other-page">
+		<div class="container">
+			<div class="search-warp">
+				<div class="section-title text-white">
+					<h2><span>Login</span></h2>
+				</div>
+				<div class="row">
+					<div class="col-lg-10 offset-lg-1">
+						<!-- Login form -->
+						<form class="course-search-form" method="POST" action="{%url 'login_url' %}">
+						<!-- {%csrf_token%} -->
+							<input type="text" placeholder="username" name="username">
+							<input type="password" class="last-m" placeholder="Password" name="password">
+							<button class="site-btn btn-dark">Login</button>
+						</form>
+
+						{% if msg %}
+						<script>
+							swal("Username or Password is invalid")
+						</script>
+						{% endif %}
+					</div>
+					<div class="col-lg-10 offset-lg-1" style="margin-top: 10px;"><p class="text-center" style="color: #FFF;"> <a href="{% url 'register_url' %}" style="color: #FFF;">Not a registered user? Sign up now</a></p></div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- search section end -->
+
+
+
+	<!-- Page -->
+	
+
+
+	<!-- banner section -->
+	<section class="banner-section spad">
+		<div class="container">
+			<div class="section-title mb-0 pb-2">
+				<h2>Not member? Join Our Community Now!</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+			</div>
+			<div class="text-center pt-5">
+				<a href="{%url 'register_url' %}" class="site-btn">Register Now</a>
+			</div>
+		</div>
+	</section>
+	<!-- banner section end -->
+
+{% endblock %}
